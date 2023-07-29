@@ -1,7 +1,9 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
+import dotenv from"dotenv"
 
+dotenv.config()
 
 
 export const register = async (req, res)=>{
@@ -15,15 +17,15 @@ export const register = async (req, res)=>{
             email,
             password:  hashedPassword,
             picturePath,
-            friends,
+            friends: 0,
             location,
             occupation,
-            viewedProfile: Math.floor(Math.random() * 10000),
-            impressions: Math.floor(Math.random() * 10000),
+            viewedProfile: 0,
+            impressions: 0,
           });
-          const savedUser = await newUser.save();
-          delete savedUser.password
-        return   res.status(201).json(savedUser);
+           await newUser.save();
+         
+        return   res.status(201).json({message: "user succesfully saved"});
 
     }catch(err){
 
@@ -35,19 +37,23 @@ export const register = async (req, res)=>{
 
 export const Login = async (req,res)=>{
     try{
+        console.log("LOgging...")
         const {email, password} = req.body
+       
 
         const user = await User.findOne({email:email})
-        if(!user) return res.status(400).json({"message": "Invalid credentials"})
+        if(!user) return res.status(500).json({"message": "Invalid credentials"})
 
 
         const isMatch = await bcrypt.compare(password, user.password)
+        
+        if(!isMatch) return res.status(500).json({"message": "Invalid credentials"})
 
-        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET)
-        delete user.password
-
-        res.status(200).json({token, user})
-
+        console.log(process.env.JWT_SECRET)
+        const token = await jwt.sign({id: user._id}, process.env.JWT_SECRET)
+        console.log(token, "enddd")
+        
+        return  res.status(200).json({message:"succesfully logged in", token})
     }catch(err){
 
      return   res.status(500).json({"message": err})
