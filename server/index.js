@@ -10,6 +10,7 @@ import { fileURLToPath } from "url"
 import mongoose from 'mongoose'
 import { register } from "./Controllers/auth.js"
 import authRoutes from "./Routes/auth.js"
+import userRoutes from "./Routes/userRoutes.js"
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
@@ -42,6 +43,7 @@ const storage = multer.diskStorage({
 
 
   app.use("/auth", authRoutes);
+  app.use("/users", userRoutes)
 
 
   /*Mongoose setup */

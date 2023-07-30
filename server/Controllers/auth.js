@@ -28,8 +28,9 @@ export const register = async (req, res)=>{
         return   res.status(201).json({message: "user succesfully saved"});
 
     }catch(err){
+        
 
-     return   res.status(500).json({"message": err})
+     return   res.status(500).json({"message": "Couldn't register the user"})
 
     }
 }
@@ -51,7 +52,7 @@ export const Login = async (req,res)=>{
 
         console.log(process.env.JWT_SECRET)
         const token = await jwt.sign({id: user._id}, process.env.JWT_SECRET)
-        console.log(token, "enddd")
+        
         
         return  res.status(200).json({message:"succesfully logged in", token})
     }catch(err){
