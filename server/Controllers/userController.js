@@ -37,13 +37,18 @@ export const getUserFriends = async (req, res) => {
     const user = await User.findById(id)
     if(!user) return res.status(404).json({message:"User not found"})
 
+    if(user.friends.length === 0) return res.status(404).json({message:"You don't have friends yet"})
+
+    user.friends.shift() //removes the default 0 inserted by mongodb
+
     const friends = await Promise.all(
-      user.friends.map((id)=>User.findById(id))
+      user.friends.map((id)=> User.findById(id))
     )
 
 
     res.status(200).json({data:{friends}})
   } catch (err) {
+    console.log(err)
     res.status(500).json({message:"An error ocucred.Please try again later"});
   }
 };
