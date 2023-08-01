@@ -11,6 +11,7 @@ import mongoose from 'mongoose'
 import { register } from "./Controllers/auth.js"
 import authRoutes from "./Routes/auth.js"
 import userRoutes from "./Routes/userRoutes.js"
+import postRoutes from "./Routes/posts.js"
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
@@ -40,6 +41,7 @@ const storage = multer.diskStorage({
   /**Routes with files */
 
   app.post("/auth/register", upload.single("picture"), register);
+  app.use("/posts", postRoutes)
 
 
   app.use("/auth", authRoutes);
