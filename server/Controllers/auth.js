@@ -7,6 +7,7 @@ dotenv.config()
 
 
 export const register = async (req, res)=>{
+    console.log("running")
     try{
        
         const {firstName, lastName, email, password, picturePath, friends, location, occupation} = req.body
