@@ -41,11 +41,12 @@ const storage = multer.diskStorage({
   /**Routes with files */
 
   app.post("/auth/register", upload.single("picture"), register);
-  app.use("/posts", postRoutes)
+  
 
 
   app.use("/auth", authRoutes);
   app.use("/users", userRoutes)
+  app.use("/posts", postRoutes)
 
 
   /*Mongoose setup */
