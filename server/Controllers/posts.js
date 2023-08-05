@@ -79,3 +79,29 @@ export const getFeedPosts = async (req, res) => {
     res.status(500).json({ message: "A server error occured" });
   }
 };
+
+export const commentOnPost = async (req,res)=>{
+    try{
+        const {postId} = req.params
+        const {comment} = req.body
+        const {id} = req.info
+        
+        const post = await Post.findById(postId)
+        if(!post) return res.status(404).json({message:"No post found"})
+     
+        post.comments.push({comment, userI:id})
+     
+
+        const updatedPost = await Post.findByIdAndUpdate(
+            postId, 
+            {comments: post.comments},
+            {new:true}
+        )
+
+        return res.status(200).json(updatedPost);
+
+    }catch(err){
+        console.log(err)
+        res.status(500).json({message:"A server error occured"})
+    }
+}
