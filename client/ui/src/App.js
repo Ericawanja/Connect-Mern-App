@@ -1,13 +1,14 @@
 
 import './App.css';
+import TopNavbar from './components/TopNavbar';
 
 function App() {
   return (
     <div className="App">
-    <h1 className="text-3xl font-bold underline">
+    <p className="text-3xl font-bold underline">
       Hello world!
-    </h1>
-      
+    </p>
+      <TopNavbar/>
     </div>
   );
 }
