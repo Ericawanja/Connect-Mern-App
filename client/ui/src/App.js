@@ -5,10 +5,11 @@ import TopNavbar from './components/TopNavbar';
 function App() {
   return (
     <div className="App">
-    <p className="text-3xl font-bold underline">
-      Hello world!
-    </p>
+    
       <TopNavbar/>
+      <div className='bg-slate-100 w-screen h-screen'>
+      body
+      </div>
     </div>
   );
 }
