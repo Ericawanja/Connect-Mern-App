@@ -26,6 +26,9 @@ function App() {
             <button class="rounded-full bg-teal-400 px-4 py-1 text-white">Post</button>
             </div>
           </div>
+          <div>
+          posts
+          </div>
         </div>
         <div className="bg-white">Right</div>
       </div>
